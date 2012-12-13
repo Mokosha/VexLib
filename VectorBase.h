@@ -104,8 +104,27 @@ namespace VexLib {
     }
 
     template<typename _T>
+    VectorBase<T, N> operator/(const _T s) const {
+      VectorBase<T, N> a;
+      for(int i = 0; i < N; i++) a[i] = vec[i] / s;
+      return a;
+    }
+  
+    template<typename _T>
+    friend VectorBase<T, N> operator/(const _T s, const VectorBase<T, N> &v) {
+      VectorBase<T, N> a;
+      for(int i = 0; i < N; i++) a[i] = v[i] / s;
+      return a;
+    }
+
+    template<typename _T>
     void operator*=(const _T s) {
       for(int i = 0; i < N; i++) vec[i] *= s;
+    }
+
+    template<typename _T>
+    void operator/=(const _T s) {
+      for(int i = 0; i < N; i++) vec[i] /= s;
     }
 
     // Vector operations
