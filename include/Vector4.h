@@ -2,7 +2,11 @@
 #define __VEXLIB_VECTOR4_H__
 
 #include "Vector3.h"
-#define _VEX_VEC4_SWIZZLE_DEF(X, Y, Z, W) Vector4<T> X##Y##Z##W() const { return Vector4<T>( X(), Y(), Z(), W() ); }
+
+#ifdef _VEX_ENABLE_SWIZZLE_
+#define _VEX_VEC4_SWIZZLE_DEF(X, Y, Z, W) \
+  Vector4<T> X##Y##Z##W() const { return Vector4<T>( X(), Y(), Z(), W() ); }
+#endif // _VEX_ENABLE_SWIZZLE_
 
 namespace VexLib {
 
@@ -41,6 +45,7 @@ namespace VexLib {
     const T &W() const { return (*this)[3]; }
 
     // Swizzle
+    #ifdef _VEX_ENABLE_SWIZZLE_
     _VEX_VEC2_SWIZZLE_DEF(X, X)
     _VEX_VEC2_SWIZZLE_DEF(X, Y)
     _VEX_VEC2_SWIZZLE_DEF(X, Z)
@@ -379,6 +384,7 @@ namespace VexLib {
     _VEX_VEC4_SWIZZLE_DEF(W, W, W, Y)
     _VEX_VEC4_SWIZZLE_DEF(W, W, W, Z)
     _VEX_VEC4_SWIZZLE_DEF(W, W, W, W)
+    #endif // _VEX_ENABLE_SWIZZLE_
   };
 
   typedef Vector4<float> Vec4f;

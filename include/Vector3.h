@@ -2,7 +2,11 @@
 #define __VEXLIB_VECTOR3_H__
 
 #include "Vector2.h"
-#define _VEX_VEC3_SWIZZLE_DEF(X, Y, Z) Vector3<T> X##Y##Z() const { return Vector3<T>( X(), Y(), Z() ); }
+
+#ifdef _VEX_ENABLE_SWIZZLE_
+# define _VEX_VEC3_SWIZZLE_DEF(X, Y, Z) \
+    Vector3<T> X##Y##Z() const { return Vector3<T>( X(), Y(), Z() ); }
+#endif // _VEX_ENABLE_SWIZZLE_
 
 namespace VexLib {
 
@@ -36,7 +40,18 @@ namespace VexLib {
     T &Z() { return (*this)[2]; }
     const T &Z() const { return (*this)[2]; }
 
+    // Vector operations
+    template<typename _T>
+    Vector3<T> Cross(const Vector3<_T> &v) {
+      return Vector3<T>(
+	Y() * v.Z() - v.Y() * Z(),
+	Z() * v.X() - v.Z() * X(),
+	X() * v.Y() - v.X() * Y()
+      );
+    }
+
     // Swizzle
+    #ifdef _VEX_ENABLE_SWIZZLE_
     _VEX_VEC2_SWIZZLE_DEF(X, X)
     _VEX_VEC2_SWIZZLE_DEF(X, Y)
     _VEX_VEC2_SWIZZLE_DEF(X, Z)
@@ -74,6 +89,7 @@ namespace VexLib {
     _VEX_VEC3_SWIZZLE_DEF(Z, Z, X)
     _VEX_VEC3_SWIZZLE_DEF(Z, Z, Y)
     _VEX_VEC3_SWIZZLE_DEF(Z, Z, Z)
+    #endif // _VEX_ENABLE_SWIZZLE_
   };
 
   typedef Vector3<float> Vec3f;
