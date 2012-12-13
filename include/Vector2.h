@@ -2,6 +2,7 @@
 #define __VEXLIB_VECTOR2_H__
 
 #include "VectorBase.h"
+#define _VEX_VEC2_SWIZZLE_DEF(X, Y) Vector2<T> X##Y() const { return Vector2<T>( X(), Y() ); }
 
 namespace VexLib {
 
@@ -35,17 +36,10 @@ namespace VexLib {
     const T &Y() const { return (*this)[1]; }
 
     // Swizzle
-    Vector2<T> XX() const {
-      return Vector2<T>(X(), X());
-    }
-
-    Vector2<T> YX() const {
-      return Vector2<T>(Y(), X());
-    }
-
-    Vector2<T> YY() const {
-      return Vector2<T>(Y(), Y());
-    }
+    _VEX_VEC2_SWIZZLE_DEF(X, X)
+    _VEX_VEC2_SWIZZLE_DEF(X, Y)
+    _VEX_VEC2_SWIZZLE_DEF(Y, X)
+    _VEX_VEC2_SWIZZLE_DEF(Y, Y)
   };
 
   typedef Vector2<float> Vec2f;

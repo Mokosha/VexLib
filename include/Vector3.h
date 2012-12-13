@@ -2,6 +2,7 @@
 #define __VEXLIB_VECTOR3_H__
 
 #include "Vector2.h"
+#define _VEX_VEC3_SWIZZLE_DEF(X, Y, Z) Vector3<T> X##Y##Z() const { return Vector3<T>( X(), Y(), Z() ); }
 
 namespace VexLib {
 
@@ -36,43 +37,43 @@ namespace VexLib {
     const T &Z() const { return (*this)[2]; }
 
     // Swizzle
-    Vector2<T> XX() const { return Vector2<T>(X(), X()); }
-    Vector2<T> XY() const { return Vector2<T>(X(), Y()); }
-    Vector2<T> XZ() const { return Vector2<T>(X(), Z()); }
-    Vector2<T> YX() const { return Vector2<T>(Y(), X()); }
-    Vector2<T> YY() const { return Vector2<T>(Y(), Y()); }
-    Vector2<T> YZ() const { return Vector2<T>(Y(), Z()); }
-    Vector2<T> ZX() const { return Vector2<T>(Z(), X()); }
-    Vector2<T> ZY() const { return Vector2<T>(Z(), Y()); }
-    Vector2<T> ZZ() const { return Vector2<T>(Z(), Z()); }
+    _VEX_VEC2_SWIZZLE_DEF(X, X)
+    _VEX_VEC2_SWIZZLE_DEF(X, Y)
+    _VEX_VEC2_SWIZZLE_DEF(X, Z)
+    _VEX_VEC2_SWIZZLE_DEF(Y, X)
+    _VEX_VEC2_SWIZZLE_DEF(Y, Y)
+    _VEX_VEC2_SWIZZLE_DEF(Y, Z)
+    _VEX_VEC2_SWIZZLE_DEF(Z, X)
+    _VEX_VEC2_SWIZZLE_DEF(Z, Y)
+    _VEX_VEC2_SWIZZLE_DEF(Z, Z)
 
-    Vector3<T> XXX() const { return Vector3<T>(X(), X(), X()); }
-    Vector3<T> XXY() const { return Vector3<T>(X(), X(), Y()); }
-    Vector3<T> XXZ() const { return Vector3<T>(X(), X(), Z()); }
-    Vector3<T> XYX() const { return Vector3<T>(X(), Y(), X()); }
-    Vector3<T> XYY() const { return Vector3<T>(X(), Y(), Y()); }
-    Vector3<T> XYZ() const { return Vector3<T>(X(), Y(), Z()); }
-    Vector3<T> XZX() const { return Vector3<T>(X(), Z(), X()); }
-    Vector3<T> XZY() const { return Vector3<T>(X(), Z(), Y()); }
-    Vector3<T> XZZ() const { return Vector3<T>(X(), Z(), Z()); }
-    Vector3<T> YXX() const { return Vector3<T>(Y(), X(), X()); }
-    Vector3<T> YXY() const { return Vector3<T>(Y(), X(), Y()); }
-    Vector3<T> YXZ() const { return Vector3<T>(Y(), X(), Z()); }
-    Vector3<T> YYX() const { return Vector3<T>(Y(), Y(), X()); }
-    Vector3<T> YYY() const { return Vector3<T>(Y(), Y(), Y()); }
-    Vector3<T> YYZ() const { return Vector3<T>(Y(), Y(), Z()); }
-    Vector3<T> YZX() const { return Vector3<T>(Y(), Z(), X()); }
-    Vector3<T> YZY() const { return Vector3<T>(Y(), Z(), Y()); }
-    Vector3<T> YZZ() const { return Vector3<T>(Y(), Z(), Z()); }
-    Vector3<T> ZXX() const { return Vector3<T>(Z(), X(), X()); }
-    Vector3<T> ZXY() const { return Vector3<T>(Z(), X(), Y()); }
-    Vector3<T> ZXZ() const { return Vector3<T>(Z(), X(), Z()); }
-    Vector3<T> ZYX() const { return Vector3<T>(Z(), Y(), X()); }
-    Vector3<T> ZYY() const { return Vector3<T>(Z(), Y(), Y()); }
-    Vector3<T> ZYZ() const { return Vector3<T>(Z(), Y(), Z()); }
-    Vector3<T> ZZX() const { return Vector3<T>(Z(), Z(), X()); }
-    Vector3<T> ZZY() const { return Vector3<T>(Z(), Z(), Y()); }
-    Vector3<T> ZZZ() const { return Vector3<T>(Z(), Z(), Z()); }
+    _VEX_VEC3_SWIZZLE_DEF(X, X, X)
+    _VEX_VEC3_SWIZZLE_DEF(X, X, Y)
+    _VEX_VEC3_SWIZZLE_DEF(X, X, Z)
+    _VEX_VEC3_SWIZZLE_DEF(X, Y, X)
+    _VEX_VEC3_SWIZZLE_DEF(X, Y, Y)
+    _VEX_VEC3_SWIZZLE_DEF(X, Y, Z)
+    _VEX_VEC3_SWIZZLE_DEF(X, Z, X)
+    _VEX_VEC3_SWIZZLE_DEF(X, Z, Y)
+    _VEX_VEC3_SWIZZLE_DEF(X, Z, Z)
+    _VEX_VEC3_SWIZZLE_DEF(Y, X, X)
+    _VEX_VEC3_SWIZZLE_DEF(Y, X, Y)
+    _VEX_VEC3_SWIZZLE_DEF(Y, X, Z)
+    _VEX_VEC3_SWIZZLE_DEF(Y, Y, X)
+    _VEX_VEC3_SWIZZLE_DEF(Y, Y, Y)
+    _VEX_VEC3_SWIZZLE_DEF(Y, Y, Z)
+    _VEX_VEC3_SWIZZLE_DEF(Y, Z, X)
+    _VEX_VEC3_SWIZZLE_DEF(Y, Z, Y)
+    _VEX_VEC3_SWIZZLE_DEF(Y, Z, Z)
+    _VEX_VEC3_SWIZZLE_DEF(Z, X, X)
+    _VEX_VEC3_SWIZZLE_DEF(Z, X, Y)
+    _VEX_VEC3_SWIZZLE_DEF(Z, X, Z)
+    _VEX_VEC3_SWIZZLE_DEF(Z, Y, X)
+    _VEX_VEC3_SWIZZLE_DEF(Z, Y, Y)
+    _VEX_VEC3_SWIZZLE_DEF(Z, Y, Z)
+    _VEX_VEC3_SWIZZLE_DEF(Z, Z, X)
+    _VEX_VEC3_SWIZZLE_DEF(Z, Z, Y)
+    _VEX_VEC3_SWIZZLE_DEF(Z, Z, Z)
   };
 
   typedef Vector3<float> Vec3f;
