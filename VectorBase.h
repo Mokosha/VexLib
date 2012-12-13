@@ -9,18 +9,29 @@ namespace VexLib {
 
   template <typename T, const int N>
   class VectorBase {
-   private:
+   protected:
 
     // Vector representation
     T vec[N];
 
    public:
+    
+    VectorBase() { }
+    VectorBase(const VectorBase<T, N> &other) {
+      for(int i = 0; i < N; i++) vec[i] = other[i];
+    }
 
     VectorBase(T *_vec) {
       for(int i = 0; i < N; i++) {
 	vec[i] = _vec[i];
       }
     }
+
+    // Accessors
+    T &operator()(int idx) { return vec[idx]; }
+    T &operator[](int idx) { return vec[idx]; }
+    const T &operator()(int idx) const { return vec[idx]; }
+    const T &operator[](int idx) const { return vec[idx]; }
 
     // Allow casts to the respective array representation...
     operator T *() const { return vec; }
@@ -40,16 +51,16 @@ namespace VexLib {
     VectorBase<T, N> operator+(const VectorBase<_T, N> &v) const {
       VectorBase a;
       for(int i = 0; i < N; i++) {
-	a.vec[i] = v.vec[i] + vec[i];
+	a.vec[i] = v(i) + vec[i];
       }
       return a;
     }
 
     template<typename _T>
-    VectorBase<T, N> operator-(const Vector3<_T, N> &v) const {
+    VectorBase<T, N> operator-(const VectorBase<_T, N> &v) const {
       VectorBase<T, N> a;
       for(int i = 0; i < N; i++) {
-	a.vec[i] = v.vec[i] - vec[i];
+	a(i) = v[i] - vec[i];
       }
       return a;
     }
@@ -57,7 +68,7 @@ namespace VexLib {
     template<typename _T>
     VectorBase<T, N> &operator=(const VectorBase<_T, N> &v) {
       for(int i = 0; i < N; i++) {
-	vec[i] = v.vec[i];
+	vec[i] = v[i];
       }
       return *this;
     }
@@ -65,14 +76,14 @@ namespace VexLib {
     template<typename _T>
     VectorBase<T, N> operator*(const _T s) const {
       VectorBase<T, N> a;
-      for(int i = 0; i < N; i++) a.vec[i] = vec[i] * s;
+      for(int i = 0; i < N; i++) a[i] = vec[i] * s;
       return a;
     }
   
     template<typename _T>
     friend VectorBase<T, N> operator*(const _T s, const VectorBase<T, N> &v) {
       VectorBase<T, N> a;
-      for(int i = 0; i < N; i++) a.vec[i] = v.vec[i] * s;
+      for(int i = 0; i < N; i++) a[i] = v(i) * s;
       return a;
     }
 
@@ -83,9 +94,9 @@ namespace VexLib {
 
     // Vector operations
     template<typename _T>
-    T Dot(const Vector<_T> &v) const {
+    T Dot(const VectorBase<_T, N> &v) const {
       T sum = 0;
-      for(int i = 0; i < N; i++) sum += vec[i] * v.vec[i];
+      for(int i = 0; i < N; i++) sum += vec[i] * v[i];
       return sum;
     }
 
