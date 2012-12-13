@@ -57,12 +57,28 @@ namespace VexLib {
     }
 
     template<typename _T>
+    VectorBase<T, N> &operator+=(const VectorBase<_T, N> &v) const {
+      for(int i = 0; i < N; i++) {
+	vec[i] += v(i);
+      }
+      return *this;
+    }
+
+    template<typename _T>
     VectorBase<T, N> operator-(const VectorBase<_T, N> &v) const {
       VectorBase<T, N> a;
       for(int i = 0; i < N; i++) {
-	a(i) = v[i] - vec[i];
+	a(i) = vec[i] - v[i];
       }
       return a;
+    }
+
+    template<typename _T>
+    VectorBase<T, N> &operator-=(const VectorBase<_T, N> &v) const {
+      for(int i = 0; i < N; i++) {
+        vec[i] -= v[i];
+      }
+      return *this;
     }
 
     template<typename _T>
@@ -83,7 +99,7 @@ namespace VexLib {
     template<typename _T>
     friend VectorBase<T, N> operator*(const _T s, const VectorBase<T, N> &v) {
       VectorBase<T, N> a;
-      for(int i = 0; i < N; i++) a[i] = v(i) * s;
+      for(int i = 0; i < N; i++) a[i] = v[i] * s;
       return a;
     }
 
