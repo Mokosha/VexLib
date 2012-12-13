@@ -135,13 +135,8 @@ namespace VexLib {
       return sum;
     }
 
-    float Length() const {
-      return sqrt((float)(this->Dot(*this)));
-    }
-
-    double LengthD() const {
-      return sqrt((double)(this->Dot(*this)));
-    }
+    T LengthSq() const { return this->Dot(*this); }
+    T Length() const { return sqrt(LengthSq()); }
   };
 };
 
