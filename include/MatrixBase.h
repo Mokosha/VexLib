@@ -151,7 +151,41 @@ namespace VexLib {
       }
       return result;
     }
-    
+
+    // Outer product...
+    template<typename _T, typename _U, const int N, const int M>
+    friend MatrixBase<_T, N, M> operator^(
+      const VectorBase<_T, N> &a, 
+      const VectorBase<_U, M> &b
+    ) {
+
+      MatrixBase<_T, N, M> result;
+
+      for(int i = 0; i < N; i++)
+      for(int j = 0; j < M; j++)
+        result(i, j) = a[i] * b[j];
+ 
+      return result;
+    }
+
+    template<typename _T, typename _U, const int N, const int M>
+    friend MatrixBase<_T, N, M> OuterProduct(
+      const VectorBase<_T, N> &a, 
+      const VectorBase<_U, M> &b
+    ) { 
+      return a ^ b; 
+    }
+
+    // Double dot product
+    template<typename _T>
+    T DDot(const MatrixBase<_T, nRows, nCols> &m) {
+      T result = 0;
+      for(int i = 0; i < kNumElements; i++) {
+        result += mat[i] * m[i];
+      }
+      return result;
+    }
+
   };
 };
 
