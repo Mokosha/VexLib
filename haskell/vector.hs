@@ -5,7 +5,7 @@ data Vector4Type t = Vector4 !t !t !t !t
 class Vector v where
 
   -- Return a vector containing copies of the scalar --
-  fromScalar :: Num t => t -> v t
+  fromScalar :: t -> v t
 
   -- Return a vector containing rational copies of the argument --
   toFloat :: (Floating t) => v Integer -> v t
