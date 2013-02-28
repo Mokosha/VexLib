@@ -1,8 +1,27 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 
-data Vector2Type t = Vector2 t t
-data Vector3Type t = Vector3 t t t
-data Vector4Type t = Vector4 t t t t
+data Vector2Type t = Vector2 !t !t
+data Vector3Type t = Vector3 !t !t !t
+data Vector4Type t = Vector4 !t !t !t !t
+
+class Vector v where
+
+  -- Return a vector containing copies of the scalar --
+  fromScalar :: Num t => t -> v t
+
+  -- Return a vector containing rational copies of the argument --
+  toFloat :: (Floating t) => v Integer -> v t
+  
+  -- Get the dot product of this vector with another --
+  dot :: Num t => v t -> v t -> t
+
+  -- Get the length of the vector --
+  magnitude :: (Fractional t, Floating t) => v t -> t
+  magnitude x = sqrt(x `dot` x)
+
+  -- Get the normalized form of this vector --
+  normalized :: (Floating t, Fractional (v t)) => v t -> v t
+  normalized x = x / fromScalar(magnitude x)
 
 -------------------------------------------------------------------------
 -- Vector2 functions...
@@ -41,6 +60,17 @@ instance (Fractional t) => Fractional (Vector2Type t) where
   -- From Rational --
   fromRational r = Vector2 (fromRational r) (fromRational r)
 
+instance Vector (Vector2Type) where
+
+  -- From Scalar --
+  fromScalar x = Vector2 x x
+
+  -- To Float --
+  toFloat (Vector2 x y) = Vector2 (fromInteger x) (fromInteger y)
+  
+  -- Dot Product --
+  dot (Vector2 x y) (Vector2 x' y') = x*x' + y*y'
+  
 -------------------------------------------------------------------------
 -- Vector3 functions...
 instance (Eq t) => Eq (Vector3Type t) where
@@ -78,6 +108,17 @@ instance (Fractional t) => Fractional (Vector3Type t) where
   -- From Rational --
   fromRational r = Vector3 (fromRational r) (fromRational r) (fromRational r)
 
+instance Vector (Vector3Type) where
+
+  -- From Scalar --
+  fromScalar x = Vector3 x x x
+  
+  -- To Float --
+  toFloat (Vector3 x y z) = Vector3 (fromInteger x) (fromInteger y) (fromInteger z)
+  
+  -- Dot Product --
+  dot (Vector3 x y z) (Vector3 x' y' z') = x*x' + y*y' + z*z'
+
 -------------------------------------------------------------------------
 -- Vector4 functions...
 instance (Eq t) => Eq (Vector4Type t) where
@@ -114,6 +155,17 @@ instance (Fractional t) => Fractional (Vector4Type t) where
 
   -- From Rational --
   fromRational r = Vector4 (fromRational r) (fromRational r) (fromRational r) (fromRational r)
+
+instance Vector (Vector4Type) where
+
+  -- From Scalar --
+  fromScalar x = Vector4 x x x x
+  
+  -- To Float --
+  toFloat (Vector4 x y z w) = Vector4 (fromInteger x) (fromInteger y) (fromInteger z) (fromInteger w)
+  
+  -- Dot Product --
+  dot (Vector4 x y z w) (Vector4 x' y' z' w') = x*x' + y*y' + z*z' + w*w'
 
 type Vec2f = Vector2Type Float
 type Vec3f = Vector3Type Float
