@@ -1,5 +1,3 @@
-{-# LANGUAGE MultiParamTypeClasses #-}
-
 data Vector2Type t = Vector2 !t !t
 data Vector3Type t = Vector3 !t !t !t
 data Vector4Type t = Vector4 !t !t !t !t
