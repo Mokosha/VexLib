@@ -68,9 +68,9 @@ namespace VexLib {
     template<typename _T>
     Vector3<T> Cross(const Vector3<_T> &v) {
       return Vector3<T>(
-	Y() * v.Z() - v.Y() * Z(),
-	Z() * v.X() - v.Z() * X(),
-	X() * v.Y() - v.X() * Y()
+        Y() * v.Z() - v.Y() * Z(),
+        Z() * v.X() - v.Z() * X(),
+        X() * v.Y() - v.X() * Y()
       );
     }
 
