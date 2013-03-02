@@ -117,6 +117,9 @@ instance Vector (Vector3Type) where
   -- Dot Product --
   dot (Vector3 x y z) (Vector3 x' y' z') = x*x' + y*y' + z*z'
 
+-- Cross Product --
+cross (Vector3 x y z) (Vector3 x' y' z') = Vector3 (y*z' - y'*z) (z*x' - z'*x) (x*y' - x'*y)
+
 -------------------------------------------------------------------------
 -- Vector4 functions...
 instance (Eq t) => Eq (Vector4Type t) where
@@ -164,6 +167,7 @@ instance Vector (Vector4Type) where
   
   -- Dot Product --
   dot (Vector4 x y z w) (Vector4 x' y' z' w') = x*x' + y*y' + z*z' + w*w'
+
 
 type Vec2f = Vector2Type Float
 type Vec3f = Vector3Type Float
